@@ -1,46 +1,531 @@
-# Create a REST API from a RAML spec
+#Source code can be found in restful-api-project/src/main/java
+Tech used:
+* Java spark
+* Maven
+* MongoDB
+* Morphia
+* Gson
 
-Your task is to create a REST API the implements the end points available in the
-provided RAML specification.
+#To Run
+Have Mongodb running on localhost:27017
+Run restful-api-project/src/main/java/Api.java (I used intellij, I'm not sure if a maven project works cross IDE for dependencies)
 
-Please complete **any** number of the steps below within **5 days** of us
-sending you this document. You may put in as many hours as you wish, but we
-recommend a maximum of around 5 hours. Use any framework and languages you
-would like (Java encouraged) to complete the task.  Update
-your forked repository with your solution and a README.md with any steps needed to run it.
+#Unit Tests
 
-We are looking for code quality and innovation/thoughtfulness.
+## GET ADVISOR MODEL REQUEST (Timothy)
+curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 86a28ef5-7c82-4aac-5f53-7b61f3d2a691" "http:## localhost:4567/v1/advisor/Timothy/model"
 
-### Part I: Get it
+## RESPONSE
+null
 
-Fork this repository.
 
-Follow the instructions in the `api-docs` directory to view the RAML specification.  The
-RAML specification defines an endpoint /v1/advisor/{advisorId}/model and the json schema
-for a portfolio model.  A portfolio model is a way for an advisor to specify a group of
-asset allocations and rules to manage a portfolio,
-see <http://www.investopedia.com/terms/p/portfoliomanagement.asp>.
+## PUT ADVISOR REQUEST (Timothy)
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: d7f51163-f7d5-d285-7d34-e4db28f3e217" -d '' "http:## localhost:4567/v1/advisor/Timothy"
 
-Create a REST API application that allows a user to add portfolio models for an advisor
-and retrieve a list of portfolio models for an advisor.
+## RESPONSE
+"Advisor added."
 
-There should be some persistent store backing the REST API to keep all the models. The
-choice is yours in what to use.
 
-The PUT call to add a model should be idempotent based on the model name.  Meaning that
-multiple calls with the same model name will not add additional models to the advisor but
-overwrite the existing model with that name.
-Models with a different name should be added to the list of models for that advisor.
+## PUT ADVISOR REQUEST (Timothy)
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: aff29415-003d-048c-0655-0cc94941a39e" -d '' "http:## localhost:4567/v1/advisor/Timothy"
 
-Add validation to make sure the sum of the cash allocation percentage and all of the
-individual asset allocations percentage equals 100%.
+## RESPONSE
+"User already exists"
 
-The GET call should return all models for the specified advisorId as well as support
-paging based on query parameters.
 
-Please include unit/integration tests.
+## PUT ADVISOR MODEL REQUEST (Timothy)
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 25908cf6-3b00-9d7c-0d50-7f0151b6af83" -d '{
+   "name":"Timothys_Model1",
+   "description":"example model with tech stocks",
+   "cashHoldingPercentage":20,
+   "driftPercentage":5,
+   "createdOn":"2017-03-01",
+   "modelType":"TAXABLE",
+   "rebalanceFrequency":"QUARTERLY",
+   "assetAllocations":[
+      {
+         "symbol":"AAPL",
+         "percentage":30
+      },
+      {
+         "symbol":"GOOG",
+         "percentage":20
+      },
+      {
+         "symbol":"IBM",
+         "percentage":25
+      },
+      {
+         "symbol":"FB",
+         "percentage":25
+      }
+   ]
+}' "http:## localhost:4567/v1/advisor/Timothy/model"
 
-**Bonuses/for fun**:
-- Validate the request and response from your implementation match the RAML specification.
-- Add authentication/authorization so that a logged in advisor has access to only their
-own models.
+## RESPONSE
+"Advisor model successfully added."
+
+
+## PUT ADVISOR MODEL REQUEST (Frank)
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 34a62857-e383-7be8-1f60-bfaaa20f69da" -d '{
+   "name":"FRANKSTUFF",
+   "description":"example model with tech stocks",
+   "cashHoldingPercentage":15,
+   "driftPercentage":5,
+   "createdOn":"2017-03-01",
+   "modelType":"TAXABLE",
+   "rebalanceFrequency":"QUARTERLY",
+   "assetAllocations":[
+      {
+         "symbol":"AAPL",
+         "percentage":100
+      }
+   ]
+}' "http:## localhost:4567/v1/advisor/Frank/model"
+
+## RESPONSE
+"Advisor not found."
+
+
+## PUT ADVISOR MODEL REQUEST WITH BAD ASSET ALLOCATIONS (Timothy)
+{
+   "name":"Timothys_Model2",
+   "description":"example model with tech stocks",
+   "cashHoldingPercentage":20,
+   "driftPercentage":5,
+   "createdOn":"2017-03-01",
+   "modelType":"TAXABLE",
+   "rebalanceFrequency":"QUARTERLY",
+   "assetAllocations":[
+      {
+         "symbol":"AAPL",
+         "percentage":30
+      },
+      {
+         "symbol":"GOOG",
+         "percentage":20
+      },
+      {
+         "symbol":"IBM",
+         "percentage":45
+      }
+   ]
+}
+
+## RESPONSE
+"Advisor model asset allocation errors."
+
+
+## GET ADVISOR MODEL (Timothy)
+curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 406bfd15-c9cd-7084-0c34-f5980637619a" "http:## localhost:4567/v1/advisor/Timothy/model"
+
+## RESPONSE
+[
+  {
+    "id": "Timothys_Model1Timothy",
+    "name": "Timothys_Model1",
+    "advisor": "Timothy",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 20,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 30
+      },
+      {
+        "symbol": "GOOG",
+        "percentage": 20
+      },
+      {
+        "symbol": "IBM",
+        "percentage": 25
+      },
+      {
+        "symbol": "FB",
+        "percentage": 25
+      }
+    ]
+  }
+]
+
+
+## PUT ADVISOR REQUEST (Robert)
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 1c78d238-c8eb-8a9b-69f1-4c1065136e8b" -d '' "http:## localhost:4567/v1/advisor/Robert"
+
+## RESPONSE
+"Advisor added."
+
+
+## PUT ADVISOR MODEL REQUEST
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: f8b6f3b8-d595-84b9-053b-4d1494d1b08f" -d '{
+   "name":"ROBBO_1",
+   "description":"example model with tech stocks",
+   "cashHoldingPercentage":55,
+   "driftPercentage":10,
+   "createdOn":"2017-03-01",
+   "modelType":"TAXABLE",
+   "rebalanceFrequency":"YEARLY",
+   "assetAllocations":[
+      {
+         "symbol":"AAPL",
+         "percentage":10
+      },
+      {
+         "symbol":"GOOG",
+         "percentage":90
+      }
+   ]
+}' "http:## localhost:4567/v1/advisor/Robert/model"
+
+## RESPONSE
+"Advisor model successfully added."
+
+
+## PUT ADVISOR MODEL REQUEST - SAME NAME AS PREVIOUS (ROBBO_1) - (Robert)
+{
+   "name":"ROBBO_1",
+   "description":"example model with tech stocks",
+   "cashHoldingPercentage":55,
+   "driftPercentage":10,
+   "createdOn":"2017-03-01",
+   "modelType":"TAXABLE",
+   "rebalanceFrequency":"YEARLY",
+   "assetAllocations":[
+      {
+         "symbol":"AAPL",
+         "percentage":50
+      },
+      {
+         "symbol":"GOOG",
+         "percentage":50
+      }
+   ]
+}
+
+## RESPONSE
+"Advisor model successfully added."
+
+
+
+## GET ADVISOR MODEL REQUEST (Robert)
+curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: cefb6385-563b-f5e6-d896-24dd88ab3860" "http:## localhost:4567/v1/advisor/Robert/model"
+
+## RESPONSE - (note that there is only the one, and has been updated)
+[
+  {
+    "id": "ROBBO_1Robert",
+    "name": "ROBBO_1",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 55,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "YEARLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 50
+      },
+      {
+        "symbol": "GOOG",
+        "percentage": 50
+      }
+    ]
+  }
+]
+
+
+## PUT REQUEST (Robert)
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: f52c2bad-e782-47d9-13ab-bda50696f082" -d '{
+   "name":"ROBBO_2",
+   "description":"example model with tech stocks",
+   "cashHoldingPercentage":15,
+   "driftPercentage":5,
+   "createdOn":"2017-03-01",
+   "modelType":"TAXABLE",
+   "rebalanceFrequency":"QUARTERLY",
+   "assetAllocations":[
+      {
+         "symbol":"AAPL",
+         "percentage":100
+      }
+   ]
+}' "http:## localhost:4567/v1/advisor/Robert/model"
+
+## RESPONSE
+"Advisor model successfully added."
+
+REPEAT ABOVE ACTION WITH DIFFERENT NAMES 15 TIMES.
+
+
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## GET REQUEST(Robert)
+curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 345d6d35-1def-ecff-a7c8-dfc63955196d" "http:## localhost:4567/v1/advisor/Robert/mode"
+
+## RESPONSE
+[
+  {
+    "id": "ROBBO_1Robert",
+    "name": "ROBBO_1",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 55,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "YEARLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 50
+      },
+      {
+        "symbol": "GOOG",
+        "percentage": 50
+      }
+    ]
+  },
+  {
+    "id": "ROBBO_2Robert",
+    "name": "ROBBO_2",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  },
+  {
+    "id": "ROBBO_3Robert",
+    "name": "ROBBO_3",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  },
+  {
+    "id": "ROBBO_4Robert",
+    "name": "ROBBO_4",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  },
+  {
+    "id": "ROBBO_5Robert",
+    "name": "ROBBO_5",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  },
+  {
+    "id": "ROBBO_6Robert",
+    "name": "ROBBO_6",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  },
+  {
+    "id": "ROBBO_7Robert",
+    "name": "ROBBO_7",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  },
+  {
+    "id": "ROBBO_8Robert",
+    "name": "ROBBO_8",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  },
+  {
+    "id": "ROBBO_9Robert",
+    "name": "ROBBO_9",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  },
+  {
+    "id": "ROBBO_10Robert",
+    "name": "ROBBO_10",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  }
+]
+
+## Default 10 queried
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+## GET REQUEST FOR PAGE 4, SIZE 3 (Robert)
+curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: a5eb33be-12fe-7f58-98d6-e4380cacb7dd" "http:## localhost:4567/v1/advisor/Robert/model?pageNumber=4&pageSize=3"
+
+## RESPONSE
+[
+  {
+    "id": "ROBBO_5Robert",
+    "name": "ROBBO_5",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  },
+  {
+    "id": "ROBBO_6Robert",
+    "name": "ROBBO_6",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  },
+  {
+    "id": "ROBBO_7Robert",
+    "name": "ROBBO_7",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  }
+]
+
+
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## GET REQUEST FOR PAGE 14, SIZE 100 (Robert)
+[
+  {
+    "id": "ROBBO_15Robert",
+    "name": "ROBBO_15",
+    "advisor": "Robert",
+    "description": "example model with tech stocks",
+    "cashHoldingPercentage": 15,
+    "drifPercentage": 0,
+    "createdOn": "Mar 1, 2017 12:00:00 AM",
+    "modelType": "TAXABLE",
+    "rebalanceFrequency": "QUARTERLY",
+    "assetAllocations": [
+      {
+        "symbol": "AAPL",
+        "percentage": 100
+      }
+    ]
+  }
+]
