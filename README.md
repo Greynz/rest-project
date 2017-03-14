@@ -7,11 +7,11 @@
 * Morphia
 * Gson
 
-## To Run
+## To Run:
 Have Mongodb running on localhost:27017
 Run restful-api-project/src/main/java/Api.java (I used intellij, I'm not sure if a maven project works cross IDE for dependencies)
 
-## Unit Tests
+## Unit Tests:
 
 ### GET ADVISOR MODEL REQUEST (Timothy)
 ```
@@ -26,8 +26,9 @@ null
 curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '' "http:### localhost:4567/v1/advisor/Timothy"
 ```
 ### RESPONSE
+```
 "Advisor added."
-
+```
 
 ### PUT ADVISOR REQUEST (Timothy)
 ```
@@ -549,7 +550,6 @@ curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
 ]
 ```
 
-### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ### GET REQUEST FOR PAGE 14, SIZE 100 (Robert)
 ```
 [
