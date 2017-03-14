@@ -1,5 +1,6 @@
-# Source code can be found in restful-api-project/src/main/java
-Tech used:
+### Source code can be found in restful-api-project/src/main/java
+
+# Tech used:
 * Java spark
 * Maven
 * MongoDB
@@ -11,6 +12,7 @@ Have Mongodb running on localhost:27017
 Run restful-api-project/src/main/java/Api.java (I used intellij, I'm not sure if a maven project works cross IDE for dependencies)
 
 # Unit Tests
+## Please view in Notepad for formatting
 
 ### GET ADVISOR MODEL REQUEST (Timothy)
 curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 86a28ef5-7c82-4aac-5f53-7b61f3d2a691" "http:### localhost:4567/v1/advisor/Timothy/model"
@@ -263,7 +265,6 @@ curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
 REPEAT ABOVE ACTION WITH DIFFERENT NAMES 15 TIMES.
 
 
-### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ### GET REQUEST(Robert)
 curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 345d6d35-1def-ecff-a7c8-dfc63955196d" "http:### localhost:4567/v1/advisor/Robert/mode"
 
@@ -446,7 +447,6 @@ curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
 ]
 
 ### Default 10 queried
-### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 ### GET REQUEST FOR PAGE 4, SIZE 3 (Robert)
