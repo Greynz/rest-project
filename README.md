@@ -23,7 +23,7 @@ null
 
 ### PUT ADVISOR REQUEST (Timothy)
 ```
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '' "http:### localhost:4567/v1/advisor/Timothy"
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '' "http:### localhost:4567/v1/advisor/Timothy"
 ```
 ### RESPONSE
 ```
@@ -32,7 +32,7 @@ curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
 
 ### PUT ADVISOR REQUEST (Timothy)
 ```
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '' "http:### localhost:4567/v1/advisor/Timothy"
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '' "http:### localhost:4567/v1/advisor/Timothy"
 ```
 ### RESPONSE
 ```
@@ -42,7 +42,7 @@ curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
 
 ### PUT ADVISOR MODEL REQUEST (Timothy)
 ```
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '{
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{
    "name":"Timothys_Model1",
    "description":"example model with tech stocks",
    "cashHoldingPercentage":20,
@@ -79,7 +79,7 @@ curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
 
 ### PUT ADVISOR MODEL REQUEST (Frank)
 ```
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '{
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{
    "name":"FRANKSTUFF",
    "description":"example model with tech stocks",
    "cashHoldingPercentage":15,
@@ -175,7 +175,7 @@ curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
 
 ### PUT ADVISOR REQUEST (Robert)
 ```
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '' "http:### localhost:4567/v1/advisor/Robert"
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '' "http:### localhost:4567/v1/advisor/Robert"
 ```
 
 ### RESPONSE
@@ -186,7 +186,7 @@ curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
 
 ### PUT ADVISOR MODEL REQUEST
 ```
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '{
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{
    "name":"ROBBO_1",
    "description":"example model with tech stocks",
    "cashHoldingPercentage":55,
@@ -276,7 +276,7 @@ curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
 
 ### PUT REQUEST (Robert)
 ```
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '{
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{
    "name":"ROBBO_2",
    "description":"example model with tech stocks",
    "cashHoldingPercentage":15,
