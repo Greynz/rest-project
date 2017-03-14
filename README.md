@@ -1,42 +1,47 @@
 ### Source code can be found in restful-api-project/src/main/java
 
-# Tech used:
+## Tech used:
 * Java spark
 * Maven
 * MongoDB
 * Morphia
 * Gson
 
-# To Run
+## To Run
 Have Mongodb running on localhost:27017
 Run restful-api-project/src/main/java/Api.java (I used intellij, I'm not sure if a maven project works cross IDE for dependencies)
 
-# Unit Tests
-## Please view in Notepad for formatting
+## Unit Tests
 
 ### GET ADVISOR MODEL REQUEST (Timothy)
-curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 86a28ef5-7c82-4aac-5f53-7b61f3d2a691" "http:### localhost:4567/v1/advisor/Timothy/model"
-
+```
+curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "http:### localhost:4567/v1/advisor/Timothy/model"
+```
 ### RESPONSE
 null
 
 
 ### PUT ADVISOR REQUEST (Timothy)
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: d7f51163-f7d5-d285-7d34-e4db28f3e217" -d '' "http:### localhost:4567/v1/advisor/Timothy"
-
+```
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '' "http:### localhost:4567/v1/advisor/Timothy"
+```
 ### RESPONSE
 "Advisor added."
 
 
 ### PUT ADVISOR REQUEST (Timothy)
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: aff29415-003d-048c-0655-0cc94941a39e" -d '' "http:### localhost:4567/v1/advisor/Timothy"
-
+```
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '' "http:### localhost:4567/v1/advisor/Timothy"
+```
 ### RESPONSE
+```
 "User already exists"
+```
 
 
 ### PUT ADVISOR MODEL REQUEST (Timothy)
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 25908cf6-3b00-9d7c-0d50-7f0151b6af83" -d '{
+```
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '{
    "name":"Timothys_Model1",
    "description":"example model with tech stocks",
    "cashHoldingPercentage":20,
@@ -63,13 +68,17 @@ curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
       }
    ]
 }' "http:### localhost:4567/v1/advisor/Timothy/model"
+```
 
 ### RESPONSE
+```
 "Advisor model successfully added."
+```
 
 
 ### PUT ADVISOR MODEL REQUEST (Frank)
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 34a62857-e383-7be8-1f60-bfaaa20f69da" -d '{
+```
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '{
    "name":"FRANKSTUFF",
    "description":"example model with tech stocks",
    "cashHoldingPercentage":15,
@@ -84,12 +93,15 @@ curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
       }
    ]
 }' "http:### localhost:4567/v1/advisor/Frank/model"
+```
 
 ### RESPONSE
+```
 "Advisor not found."
-
+```
 
 ### PUT ADVISOR MODEL REQUEST WITH BAD ASSET ALLOCATIONS (Timothy)
+```
 {
    "name":"Timothys_Model2",
    "description":"example model with tech stocks",
@@ -113,15 +125,20 @@ curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
       }
    ]
 }
+```
 
 ### RESPONSE
+```
 "Advisor model asset allocation errors."
-
+```
 
 ### GET ADVISOR MODEL (Timothy)
-curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 406bfd15-c9cd-7084-0c34-f5980637619a" "http:### localhost:4567/v1/advisor/Timothy/model"
+```
+curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "http:### localhost:4567/v1/advisor/Timothy/model"
+```
 
 ### RESPONSE
+```
 [
   {
     "id": "Timothys_Model1Timothy",
@@ -153,17 +170,22 @@ curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
     ]
   }
 ]
-
+```
 
 ### PUT ADVISOR REQUEST (Robert)
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 1c78d238-c8eb-8a9b-69f1-4c1065136e8b" -d '' "http:### localhost:4567/v1/advisor/Robert"
+```
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '' "http:### localhost:4567/v1/advisor/Robert"
+```
 
 ### RESPONSE
+```
 "Advisor added."
+```
 
 
 ### PUT ADVISOR MODEL REQUEST
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: f8b6f3b8-d595-84b9-053b-4d1494d1b08f" -d '{
+```
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '{
    "name":"ROBBO_1",
    "description":"example model with tech stocks",
    "cashHoldingPercentage":55,
@@ -182,12 +204,16 @@ curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
       }
    ]
 }' "http:### localhost:4567/v1/advisor/Robert/model"
+```
 
 ### RESPONSE
+```
 "Advisor model successfully added."
+```
 
 
 ### PUT ADVISOR MODEL REQUEST - SAME NAME AS PREVIOUS (ROBBO_1) - (Robert)
+```
 {
    "name":"ROBBO_1",
    "description":"example model with tech stocks",
@@ -207,16 +233,21 @@ curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
       }
    ]
 }
+```
 
 ### RESPONSE
+```
 "Advisor model successfully added."
-
+```
 
 
 ### GET ADVISOR MODEL REQUEST (Robert)
-curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: cefb6385-563b-f5e6-d896-24dd88ab3860" "http:### localhost:4567/v1/advisor/Robert/model"
+```
+curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "http:### localhost:4567/v1/advisor/Robert/model"
+```
 
 ### RESPONSE - (note that there is only the one, and has been updated)
+```
 [
   {
     "id": "ROBBO_1Robert",
@@ -240,10 +271,11 @@ curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
     ]
   }
 ]
-
+```
 
 ### PUT REQUEST (Robert)
-curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: f52c2bad-e782-47d9-13ab-bda50696f082" -d '{
+```
+curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H -d '{
    "name":"ROBBO_2",
    "description":"example model with tech stocks",
    "cashHoldingPercentage":15,
@@ -258,17 +290,23 @@ curl -X PUT -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
       }
    ]
 }' "http:### localhost:4567/v1/advisor/Robert/model"
+```
 
 ### RESPONSE
+```
 "Advisor model successfully added."
+```
 
 REPEAT ABOVE ACTION WITH DIFFERENT NAMES 15 TIMES.
 
 
 ### GET REQUEST(Robert)
-curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 345d6d35-1def-ecff-a7c8-dfc63955196d" "http:### localhost:4567/v1/advisor/Robert/mode"
+```
+curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "http:### localhost:4567/v1/advisor/Robert/mode"
+```
 
 ### RESPONSE
+```
 [
   {
     "id": "ROBBO_1Robert",
@@ -445,14 +483,17 @@ curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
     ]
   }
 ]
-
+```
 ### Default 10 queried
 
 
 ### GET REQUEST FOR PAGE 4, SIZE 3 (Robert)
-curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: a5eb33be-12fe-7f58-98d6-e4380cacb7dd" "http:### localhost:4567/v1/advisor/Robert/model?pageNumber=4&pageSize=3"
+```
+curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "http:### localhost:4567/v1/advisor/Robert/model?pageNumber=4&pageSize=3"
+```
 
 ### RESPONSE
+```
 [
   {
     "id": "ROBBO_5Robert",
@@ -506,10 +547,11 @@ curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
     ]
   }
 ]
-
+```
 
 ### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ### GET REQUEST FOR PAGE 14, SIZE 100 (Robert)
+```
 [
   {
     "id": "ROBBO_15Robert",
@@ -529,3 +571,4 @@ curl -X GET -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H 
     ]
   }
 ]
+```
